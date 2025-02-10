@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     minlength: 8,
   },
+  resetCode: { type: String, default: null }, // Stores the 6-digit reset code
 });
 
 const User = mongoose.model("User", userSchema);
