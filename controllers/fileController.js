@@ -36,3 +36,17 @@ export const uploadFileController = (req, res) => {
       res.status(500).json({ msg: 'Error saving file', error: err });
     });
 };
+
+export const getAllFilesController = async (req, res) => { 
+  try {
+    const files = await File.find({ userId: req.user._id }); 
+    
+    if (files.length === 0) {
+      return res.status(404).json({ msg: 'No files found' });
+    }
+
+    res.json(files); // Send the files as JSON response
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};

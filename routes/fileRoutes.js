@@ -1,7 +1,8 @@
 import express from 'express';
 import authMiddleware from '../middleware/authMiddleware.js';
-import { uploadFileController } from '../controllers/fileController.js';
+import { uploadFileController,getAllFilesController } from '../controllers/fileController.js';
 import multer from 'multer';
+import File from '../models/fileModel.js'; 
 
 const router = express.Router();
 
@@ -13,5 +14,7 @@ const upload = multer({
 }); 
 
 router.post('/upload', authMiddleware, upload.single('file'), uploadFileController);
+router.get('/all', authMiddleware, getAllFilesController);
+
 
 export default router;
