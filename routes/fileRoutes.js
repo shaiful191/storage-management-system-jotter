@@ -5,10 +5,13 @@ import multer from 'multer';
 
 const router = express.Router();
 
-// Set up the file upload route using multer
-const upload = multer({ dest: 'uploads/' }); // Set where to store the uploaded files
 
-// Protect the route with authentication
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 } // 10 MB
+
+}); 
+
 router.post('/upload', authMiddleware, upload.single('file'), uploadFileController);
 
 export default router;

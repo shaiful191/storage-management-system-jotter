@@ -2,24 +2,10 @@ import multer from 'multer';
 import File from '../models/fileModel.js'; 
 
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); 
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname); 
-  }
-});
-
-
-const upload = multer({ 
-  storage: storage,
-  limits: { fileSize: 15 * 1024 * 1024 } 
-});
 
 
 export const uploadFileController = (req, res) => {
-  console.log('User from authMiddleware:', req.user);  // Log the user information
+ // console.log('User from authMiddleware:', req.user);  // Log the user information
 
   const file = req.file;
 
@@ -33,11 +19,12 @@ export const uploadFileController = (req, res) => {
 
   const newFile = new File({
     userId: req.user._id, // Ensure userId is passed
-    filename: file.filename,
+    filename: file.originalname,
     path: file.path,
     size: file.size,
-    fileType: file.mimetype,
-    uploadDate: new Date()
+    uploadDate: new Date(),
+    data: file.buffer,
+    contentType: file.mimetype
   });
 
   newFile.save()
