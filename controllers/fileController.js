@@ -1,9 +1,6 @@
 import multer from 'multer';
 import File from '../models/fileModel.js'; 
 
-
-
-
 export const uploadFileController = async (req, res) => {
   try {
     const file = req.file;
@@ -22,7 +19,7 @@ export const uploadFileController = async (req, res) => {
       path: file.path,
       size: file.size,
       uploadDate: new Date(),
-      data: file.buffer,
+      data: file.buffer.toString('base64'),
       contentType: file.mimetype
     });
 
@@ -30,7 +27,7 @@ export const uploadFileController = async (req, res) => {
 
     res.status(201).json({ msg: 'File uploaded successfully', file: savedFile });
   } catch (error) {
-    console.error('Error saving file:', error);
+   // console.error('Error saving file:', error);
     res.status(500).json({ msg: 'Error saving file', error: error.message });
   }
 };
@@ -62,7 +59,7 @@ export const getAllFilesController = async (req, res) => {
 
     res.status(200).json({ files: recentFiles });
   } catch (error) {
-    console.error('Error fetching recent files:', error);
+    // console.error('Error fetching recent files:', error);
     res.status(500).json({ msg: 'Error fetching recent files', error: error.message });
   }
 };
@@ -83,7 +80,7 @@ export const getAllFilesController = async (req, res) => {
 
     res.status(200).json({ msg: 'File deleted successfully' });
   } catch (error) {
-    console.error('Error deleting file:', error);
+    // console.error('Error deleting file:', error);
     res.status(500).json({ msg: 'Error deleting file', error: error.message });
   }
 };

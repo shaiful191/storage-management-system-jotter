@@ -21,7 +21,7 @@ const fileSchema = new mongoose.Schema({
     default: Date.now
   },
   data: {
-    type: Buffer,
+    type: String,
     required: true
   },
   contentType: {
