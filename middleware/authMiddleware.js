@@ -20,7 +20,6 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    console.log('Token verification error:', err);  // Log the error for debugging
     res.status(401).json({ msg: 'Invalid token' });
   }
 };
