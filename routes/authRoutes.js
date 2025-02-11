@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { register, login,forgotPassword, resetPassword } from "../controllers/authController.js";
+import { register, login,forgotPassword } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -39,7 +39,7 @@ router.get("/google/callback",
 router.post("/forgot-password", forgotPassword);
 
 // Reset Password (Verify Code & Update Password)
-router.post("/reset-password", resetPassword);
+// router.post("/reset-password", resetPassword);
 
 
 export default router;

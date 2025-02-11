@@ -11,11 +11,17 @@ const userSchema = new mongoose.Schema({
     },
     minlength: 8,
   },
-  resetCode: { type: String, default: null }, // Stores the 6-digit reset code
- 
+  //resetCode: { type: String, default: null }, // Stores the 6-digit reset code
+  otp: {
+    otp: { type: String, default: null },
+    sendTime: { type: Number, default: null },
+    token: { type: String, default: null },
+  }, // Stores the 6-digit reset code
   storageLimit: { type: Number, default: 15 * 1024 * 1024 * 1024 }, // 15 GB limit in bytes
   usedStorage: { type: Number, default: 0 }, // Tracks the total storage used by the user
 
+}, {
+  timestamps: true,
 });
 
 const User = mongoose.model("User", userSchema);
