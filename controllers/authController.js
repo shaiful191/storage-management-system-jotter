@@ -1,7 +1,6 @@
 import { registerUser, loginUser } from "../services/authService.js";
 import User from "../models/User.js"; 
 import crypto from "crypto";
-import sendMail from "../utils/sendMail.js";
 
 export const register = async (req, res) => {
     try {
