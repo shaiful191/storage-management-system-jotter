@@ -26,7 +26,12 @@ const fileSchema = new mongoose.Schema({
   },
   contentType: {
     type: String,
+  },
+  isFavorite: {
+    type: Boolean,
+    default: false
   }
+  
 
 });
 

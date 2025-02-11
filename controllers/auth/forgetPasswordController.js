@@ -1,6 +1,6 @@
-import User from "../models/User.js"; 
+import User from "../../models/User.js";  
 import crypto from "crypto";
-import sendMail from "../utils/sendMail.js";
+import sendMail from "../../utils/sendMail.js";
 
 export const forgotPassword = async (req, res) => {
   try {

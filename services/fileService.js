@@ -1,4 +1,4 @@
-import File from '../models/fileModel.js';
+import File from '../models/file.js';
 import User from '../models/User.js';
 
 

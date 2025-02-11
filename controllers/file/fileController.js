@@ -1,5 +1,5 @@
 import multer from 'multer';
-import File from '../models/fileModel.js'; 
+import File from '../../models/file.js'; 
 
 export const uploadFileController = async (req, res) => {
   try {

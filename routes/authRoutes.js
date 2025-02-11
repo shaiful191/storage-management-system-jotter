@@ -1,10 +1,10 @@
 import express from "express";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { register, login } from "../controllers/authController.js";
-import { forgotPassword } from "../controllers/forgetPasswordController.js";
-import { verifyOTP } from "../controllers/verifyOTPController.js";
-import { resetPassword } from "../controllers/resetPasswordController.js";
+import { register, login } from "../controllers/auth/authController.js";
+import { forgotPassword } from "../controllers/auth/forgetPasswordController.js";
+import { verifyOTP } from "../controllers/auth/verifyOTPController.js";
+import { resetPassword } from "../controllers/auth/resetPasswordController.js";
 
 const router = express.Router();
 
