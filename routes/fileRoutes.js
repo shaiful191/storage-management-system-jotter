@@ -6,11 +6,9 @@ import File from '../models/fileModel.js';
 
 const router = express.Router();
 
-
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 } // 10 MB
-
 });
 
 router.post('/upload', authMiddleware, upload.single('file'), uploadFileController);

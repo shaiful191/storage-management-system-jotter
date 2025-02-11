@@ -2,6 +2,7 @@ import express from "express";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import { register, login,forgotPassword } from "../controllers/authController.js";
+import { verifyOTP } from "../controllers/verifyOTPController.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// ✅ Google OAuth Callback (Handles Redirect from Google)
+//  Google OAuth Callback (Handles Redirect from Google)
 router.get("/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
@@ -23,7 +24,7 @@ router.get("/google/callback",
     // Extract user and token from req.user
     const { user, token } = req.user;
 
-    // ✅ Redirect to frontend with JWT token (Optional)
+    //  Redirect to frontend with JWT token (Optional)
     // return res.redirect(`http://localhost:3000/dashboard?token=${token}`);
 
     return res.json({
@@ -35,10 +36,8 @@ router.get("/google/callback",
   }
 );
 
-// Forgot Password (Send Code)
 router.post("/forgot-password", forgotPassword);
-
-// Reset Password (Verify Code & Update Password)
+router.post("/verify-otp", verifyOTP);
 // router.post("/reset-password", resetPassword);
 
 

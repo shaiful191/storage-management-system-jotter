@@ -23,7 +23,7 @@ const sendMail = async (otp, email) => {
         throw new Error("Email sending failed");
       }
     });
-    console.log("Email sent successfully");
+    // console.log("Email sent successfully");
   } catch (error) {
     console.log("Error sending email:", error);
   }
