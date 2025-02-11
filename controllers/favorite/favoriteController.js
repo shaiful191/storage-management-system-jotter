@@ -2,8 +2,6 @@ import File from '../../models/file.js';
 
 export const toggleFavorite = async (req, res) => {
   try {
-    console.log("Request Params:", req.params); 
-
     const { fileId } = req.params; 
     const userId = req.user._id; 
     let { isFavorite } = req.body;  
