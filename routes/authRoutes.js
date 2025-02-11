@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { register, login } from "../controllers/authController.js";
 import { forgotPassword } from "../controllers/forgetPasswordController.js";
 import { verifyOTP } from "../controllers/verifyOTPController.js";
+import { resetPassword } from "../controllers/resetPasswordController.js";
 
 const router = express.Router();
 
@@ -39,7 +40,6 @@ router.get("/google/callback",
 
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOTP);
-// router.post("/reset-password", resetPassword);
-
+router.post("/reset-password", resetPassword);
 
 export default router;
