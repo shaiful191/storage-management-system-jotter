@@ -47,6 +47,21 @@ export const getAllFilesController = async (req, res) => {
   }
 };
 
+export const getSingleFileController = async (req, res) => {
+  try {
+    const file = await File.findOne({ _id: req.params.id, userId: req.user._id });
+
+    if (!file) {
+      return res.status(404).json({ msg: 'File not found' });
+    }
+
+    res.json(file);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
 export const getRecentFilesController = async (req, res) => {
   try {
     const recentFiles = await File.find({ userId: req.user._id })
@@ -123,6 +138,8 @@ export const getUserStorageUsageController = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+
 
 
 
