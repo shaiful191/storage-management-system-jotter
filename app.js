@@ -7,6 +7,7 @@ import passport from "passport";
 import "./config/passport.js";
 import homeRoutes from './routes/homeRoutes.js';
 import favoriteRoutes  from './routes/favoriteRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -22,5 +23,6 @@ app.use(passport.initialize());
 app.use("/api/auth", authRoutes);
 app.use('/api/files', homeRoutes);
 app.use('/api/favorite', favoriteRoutes);
+app.use('/api/profile', profileRoutes);
 
 export default app;

@@ -1,5 +1,4 @@
 import { registerUser, loginUser } from "../../services/authService.js";
-import User from "../../models/User.js"; 
 import crypto from "crypto";
 
 export const register = async (req, res) => {

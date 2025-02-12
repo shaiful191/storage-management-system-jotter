@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema({
     sendTime: { type: Number, default: null },
     token: { type: String, default: null },
   }, 
-  storageLimit: { type: Number, default: 15 * 1024 * 1024 * 1024 }, // 15 GB limit in bytes
-  usedStorage: { type: Number, default: 0 }, // Tracks the total storage used by the user
+  storageLimit: { type: Number, default: 15 * 1024 * 1024 * 1024 },  
+  usedStorage: { type: Number, default: 0 },  
 
 }, {
   timestamps: true,
