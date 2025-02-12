@@ -26,8 +26,7 @@ router.get("/google/callback",
     // Extract user and token from req.user
     const { user, token } = req.user;
 
-    //  Redirect to frontend with JWT token (Optional)
-    // return res.redirect(`http://localhost:3000/dashboard?token=${token}`);
+
 
     return res.json({
       success: true,
