@@ -25,4 +25,10 @@ app.use('/api/files', homeRoutes);
 app.use('/api/favorite', favoriteRoutes);
 app.use('/api/profile', profileRoutes);
 
+
+//testing api
+app.get('/', (req, res) => {
+  res.send('App is working.');
+});
+
 export default app;
