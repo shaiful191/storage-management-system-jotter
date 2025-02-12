@@ -1,5 +1,5 @@
 import File from '../../models/file.js'; 
-
+import { formatBytes } from '../../utils/formatBytes.js';
 
 export const getImagesController = async (req, res) => {
   try {
@@ -94,9 +94,21 @@ export const getFileStorageCountController = async (req, res) => {
   }
 };
 
-const formatBytes = (bytes) => {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  if (bytes === 0) return '0 Byte';
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
-};
+// export const getUserStorageUsageController = async (req, res) => {
+//   try {
+//     const totalStorageLimit = 15 * 1024 * 1024 * 1024; // 15GB in bytes
+    
+//     const files = await File.find({ userId: req.user._id });
+//     const usedStorage = files.reduce((acc, file) => acc + file.size, 0);
+//     const availableStorage = totalStorageLimit - usedStorage;
+    
+//     res.json({
+//       usedStorage: formatBytes(usedStorage),
+//       availableStorage: formatBytes(availableStorage),
+//       totalStorage: formatBytes(totalStorageLimit)
+//     });
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
