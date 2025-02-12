@@ -32,9 +32,6 @@ const fileSchema = new mongoose.Schema({
     required: true
   },
  
- 
-  
-
 });
 
 const File = mongoose.model('File', fileSchema);

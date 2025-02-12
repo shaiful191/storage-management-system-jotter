@@ -14,7 +14,7 @@ export const uploadFileController = async (req, res) => {
     }
 
     const newFile = new File({
-      userId: req.user._id, // Ensure userId is passed
+      userId: req.user._id, 
       filename: file.originalname,
       path: file.path,
       size: file.size,
@@ -23,11 +23,11 @@ export const uploadFileController = async (req, res) => {
       contentType: file.mimetype
     });
 
-    const savedFile = await newFile.save(); // Await saving to DB
+    const savedFile = await newFile.save(); 
 
     res.status(201).json({ msg: 'File uploaded successfully', file: savedFile });
   } catch (error) {
-    // console.error('Error saving file:', error);
+    
     res.status(500).json({ msg: 'Error saving file', error: error.message });
   }
 };
@@ -41,7 +41,7 @@ export const getAllFilesController = async (req, res) => {
       return res.status(404).json({ msg: 'No files found' });
     }
 
-    res.json(files); // Send the files as JSON response
+    res.json(files); 
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -59,7 +59,7 @@ export const getRecentFilesController = async (req, res) => {
 
     res.status(200).json({ files: recentFiles });
   } catch (error) {
-    // console.error('Error fetching recent files:', error);
+    
     res.status(500).json({ msg: 'Error fetching recent files', error: error.message });
   }
 };
@@ -67,27 +67,48 @@ export const getRecentFilesController = async (req, res) => {
 
 export const deleteFileController = async (req, res) => {
   try {
-    const fileId = req.params.id;
-
-    // Find the file by ID and user ID
+    const fileId = req.params.id;  
     const file = await File.findOne({ _id: fileId, userId: req.user._id });
 
     if (!file) {
       return res.status(404).json({ msg: 'File not found or unauthorized' });
     }
 
-    await File.deleteOne({ _id: fileId }); // Delete file
+    await File.deleteOne({ _id: fileId }); 
 
     res.status(200).json({ msg: 'File deleted successfully' });
   } catch (error) {
-    // console.error('Error deleting file:', error);
+    
     res.status(500).json({ msg: 'Error deleting file', error: error.message });
+  }
+};
+
+export const renameFileController = async (req, res) => {
+  try {
+    const fileId = req.params.id; 
+    const { newFilename } = req.body; 
+    if (!newFilename || typeof newFilename !== 'string' || newFilename.trim() === '') {
+      return res.status(400).json({ msg: 'New filename is required and must be a non-empty string' });
+    }
+    const file = await File.findOne({ _id: fileId, userId: req.user._id });   
+
+    if (!file) {
+      return res.status(404).json({ msg: 'File not found or unauthorized' });
+    }
+       
+    file.filename = newFilename.trim(); 
+    await file.save(); 
+
+    res.status(200).json({ msg: 'File renamed successfully', file });
+  } catch (error) {
+    console.error('Error renaming file:', error);
+    res.status(500).json({ msg: 'Error renaming file', error: error.message });
   }
 };
 
 export const getUserStorageUsageController = async (req, res) => {
   try {
-    const totalStorageLimit = 15 * 1024 * 1024 * 1024; // 15GB in bytes
+    const totalStorageLimit = 15 * 1024 * 1024 * 1024; 
 
     const files = await File.find({ userId: req.user._id });
     const usedStorage = files.reduce((acc, file) => acc + file.size, 0);

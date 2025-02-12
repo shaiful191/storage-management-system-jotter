@@ -1,9 +1,9 @@
 import express from 'express';
 import authMiddleware from '../middleware/authMiddleware.js';
-import { uploadFileController, getAllFilesController, getRecentFilesController, deleteFileController,getUserStorageUsageController } from '../controllers/home/fileController.js'; 
-import { getImagesController, getPdfsController, getNotesController, getFoldersController,getFileStorageCountController } from '../controllers/home/getFilesSeparatelyController.js';
+import { uploadFileController, getAllFilesController, getRecentFilesController, renameFileController, deleteFileController, getUserStorageUsageController } from '../controllers/home/fileController.js';
+import { getImagesController, getPdfsController, getNotesController, getFoldersController, getFileStorageCountController } from '../controllers/home/getFilesSeparatelyController.js';
 import multer from 'multer';
- 
+
 const router = express.Router();
 
 const upload = multer({
@@ -14,6 +14,7 @@ const upload = multer({
 router.post('/upload', authMiddleware, upload.single('file'), uploadFileController);
 router.get('/all', authMiddleware, getAllFilesController);
 router.get('/recent', authMiddleware, getRecentFilesController);
+router.put('/rename/:id',authMiddleware, renameFileController);
 router.delete('/deleteOne/:id', authMiddleware, deleteFileController);
 router.get('/getTotalUsagesStorageCount', authMiddleware, getUserStorageUsageController);
 
