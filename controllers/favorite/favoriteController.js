@@ -34,8 +34,6 @@ export const toggleFavorite = async (req, res) => {
   }
 };
 
-
-
 export const getFavoriteFiles = async (req, res) => {
   try {
     const userId = req.user._id; 
