@@ -15,22 +15,24 @@ const fileSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  isFavorite: {
+    type: Boolean,
+    default: false
+  },
   
   uploadDate: {
     type: Date,
     default: Date.now
   },
+  contentType: {
+    type: String,
+  },
   data: {
     type: String,
     required: true
   },
-  contentType: {
-    type: String,
-  },
-  isFavorite: {
-    type: Boolean,
-    default: false
-  }
+ 
+ 
   
 
 });

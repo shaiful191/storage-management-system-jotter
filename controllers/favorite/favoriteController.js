@@ -1,5 +1,7 @@
 import File from '../../models/file.js';  
 
+
+
 export const toggleFavorite = async (req, res) => {
   try {
     const { fileId } = req.params; 
@@ -28,6 +30,23 @@ export const toggleFavorite = async (req, res) => {
 
   } catch (error) {
     console.error("Error in toggleFavorite:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+
+export const getFavoriteFiles = async (req, res) => {
+  try {
+    const userId = req.user._id; 
+    const favoriteFiles = await File.find({ userId, isFavorite: true });
+
+    if (!favoriteFiles.length) {
+      return res.status(404).json({ message: "No favorite files found" });
+    }
+
+    res.json({ favoriteFiles });
+  } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

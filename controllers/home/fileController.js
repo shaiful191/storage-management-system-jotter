@@ -1,4 +1,3 @@
-import multer from 'multer';
 import File from '../../models/file.js'; 
 
 export const uploadFileController = async (req, res) => {
@@ -84,3 +83,4 @@ export const getAllFilesController = async (req, res) => {
     res.status(500).json({ msg: 'Error deleting file', error: error.message });
   }
 };
+
