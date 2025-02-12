@@ -28,7 +28,7 @@ app.use('/api/profile', profileRoutes);
 
 //testing api
 app.get('/', (req, res) => {
-  res.send('storage management app (jotter) is working.');
+  res.send('storage management app (jotter) is working correctly.');
 });
 
 export default app;
