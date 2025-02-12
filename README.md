@@ -44,6 +44,9 @@ npm start
 
 ```
 
+## Live Demo
+You can access the live demo of the project at: [Storage Management System - Jotter](https://storage-management-system-jotter.onrender.com/)
+
 ## Author
 This project is developed and maintained by [Shaiful Islam ](https://github.com/shaiful191).
 
