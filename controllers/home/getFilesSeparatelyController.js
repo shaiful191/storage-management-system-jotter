@@ -65,3 +65,38 @@ export const getNotesController = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+
+export const getFileStorageCountController = async (req, res) => {
+  try {
+    const fileCategories = [
+      { type: 'image', query: { contentType: { $regex: /^image\// } } },
+      { type: 'pdf', query: { contentType: 'application/pdf' } },
+      { type: 'folder', query: { contentType: 'folder' } },
+      { type: 'note', query: { contentType: { $nin: ['folder', 'application/pdf'], $not: { $regex: /^image\// } } } }
+    ];
+
+    const stats = {};
+
+    for (const category of fileCategories) {
+      const files = await File.find({ userId: req.user._id, ...category.query });
+      const totalSize = files.reduce((acc, file) => acc + file.size, 0);
+
+      stats[category.type] = {
+        count: files.length,
+        totalSize: formatBytes(totalSize)
+      };
+    }
+
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const formatBytes = (bytes) => {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+};

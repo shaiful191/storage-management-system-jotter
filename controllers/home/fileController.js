@@ -50,7 +50,7 @@ export const getAllFilesController = async (req, res) => {
   try {
     const recentFiles = await File.find({ userId: req.user._id })
       .sort({ uploadDate: -1 }) 
-      .limit(3); 
+      .limit(4); 
 
     if (recentFiles.length === 0) {
       return res.status(404).json({ msg: 'No file found' });
