@@ -1,4 +1,5 @@
-import File from '../../models/file.js'; 
+import File from '../../models/file.js';
+import { formatBytes } from '../../utils/formatBytes.js';
 
 export const uploadFileController = async (req, res) => {
   try {
@@ -26,16 +27,16 @@ export const uploadFileController = async (req, res) => {
 
     res.status(201).json({ msg: 'File uploaded successfully', file: savedFile });
   } catch (error) {
-   // console.error('Error saving file:', error);
+    // console.error('Error saving file:', error);
     res.status(500).json({ msg: 'Error saving file', error: error.message });
   }
 };
 
 
-export const getAllFilesController = async (req, res) => { 
+export const getAllFilesController = async (req, res) => {
   try {
-    const files = await File.find({ userId: req.user._id }); 
-    
+    const files = await File.find({ userId: req.user._id });
+
     if (files.length === 0) {
       return res.status(404).json({ msg: 'No files found' });
     }
@@ -46,11 +47,11 @@ export const getAllFilesController = async (req, res) => {
   }
 };
 
-  export const getRecentFilesController = async (req, res) => { 
+export const getRecentFilesController = async (req, res) => {
   try {
     const recentFiles = await File.find({ userId: req.user._id })
-      .sort({ uploadDate: -1 }) 
-      .limit(4); 
+      .sort({ uploadDate: -1 })
+      .limit(4);
 
     if (recentFiles.length === 0) {
       return res.status(404).json({ msg: 'No file found' });
@@ -64,7 +65,7 @@ export const getAllFilesController = async (req, res) => {
 };
 
 
-  export const deleteFileController = async (req, res) => {
+export const deleteFileController = async (req, res) => {
   try {
     const fileId = req.params.id;
 
@@ -83,4 +84,24 @@ export const getAllFilesController = async (req, res) => {
     res.status(500).json({ msg: 'Error deleting file', error: error.message });
   }
 };
+
+export const getUserStorageUsageController = async (req, res) => {
+  try {
+    const totalStorageLimit = 15 * 1024 * 1024 * 1024; // 15GB in bytes
+
+    const files = await File.find({ userId: req.user._id });
+    const usedStorage = files.reduce((acc, file) => acc + file.size, 0);
+    const availableStorage = totalStorageLimit - usedStorage;
+
+    res.json({
+      usedStorage: formatBytes(usedStorage),
+      availableStorage: formatBytes(availableStorage),
+      totalStorage: formatBytes(totalStorageLimit)
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
 

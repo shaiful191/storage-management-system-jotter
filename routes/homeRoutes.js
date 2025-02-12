@@ -1,6 +1,6 @@
 import express from 'express';
 import authMiddleware from '../middleware/authMiddleware.js';
-import { uploadFileController, getAllFilesController, getRecentFilesController, deleteFileController } from '../controllers/home/fileController.js'; 
+import { uploadFileController, getAllFilesController, getRecentFilesController, deleteFileController,getUserStorageUsageController } from '../controllers/home/fileController.js'; 
 import { getImagesController, getPdfsController, getNotesController, getFoldersController,getFileStorageCountController } from '../controllers/home/getFilesSeparatelyController.js';
 import multer from 'multer';
  
@@ -14,13 +14,15 @@ const upload = multer({
 router.post('/upload', authMiddleware, upload.single('file'), uploadFileController);
 router.get('/all', authMiddleware, getAllFilesController);
 router.get('/recent', authMiddleware, getRecentFilesController);
+router.delete('/deleteOne/:id', authMiddleware, deleteFileController);
+router.get('/getTotalUsagesStorageCount', authMiddleware, getUserStorageUsageController);
 
+// Get files separately
 router.get('/images', authMiddleware, getImagesController);
 router.get('/pdfs', authMiddleware, getPdfsController);
 router.get('/notes', authMiddleware, getNotesController);
 router.get('/folders', authMiddleware, getFoldersController);
 router.get('/storageUseSeparately', authMiddleware, getFileStorageCountController);
-router.delete('/deleteOne/:id', authMiddleware, deleteFileController);
 
 
 

@@ -94,21 +94,4 @@ export const getFileStorageCountController = async (req, res) => {
   }
 };
 
-// export const getUserStorageUsageController = async (req, res) => {
-//   try {
-//     const totalStorageLimit = 15 * 1024 * 1024 * 1024; // 15GB in bytes
-    
-//     const files = await File.find({ userId: req.user._id });
-//     const usedStorage = files.reduce((acc, file) => acc + file.size, 0);
-//     const availableStorage = totalStorageLimit - usedStorage;
-    
-//     res.json({
-//       usedStorage: formatBytes(usedStorage),
-//       availableStorage: formatBytes(availableStorage),
-//       totalStorage: formatBytes(totalStorageLimit)
-//     });
-//   } catch (error) {
-//     res.status(500).json({ msg: error.message });
-//   }
-// };
 
